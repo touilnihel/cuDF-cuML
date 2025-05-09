@@ -1,66 +1,53 @@
-MNIST Classification: CPU vs GPU (cuDF & cuML)
+MNIST Classification with RAPIDS (cuDF & cuML)
 
-This project demonstrates how to accelerate a machine learning pipeline using RAPIDS libraries—cuDF and cuML—on NVIDIA GPUs. The MNIST dataset is used to compare performance and accuracy between traditional CPU-based methods (Scikit-learn) and GPU-accelerated methods (cuML).
+This project demonstrates how to leverage NVIDIA RAPIDS libraries — cuDF and cuML — to accelerate machine learning workflows using GPUs. We compare the performance of Random Forest classification on the MNIST dataset using traditional CPU-based Scikit-learn and GPU-accelerated cuML.
 
-🚀 Technologies Used
-- Python
-- cuDF (GPU DataFrame API similar to Pandas)
-- cuML (GPU ML API similar to Scikit-learn)
-- Scikit-learn
-- NumPy, pandas, Matplotlib
-- RAPIDS.ai
-- CUDA-enabled GPU (for GPU acceleration)
+🔧 RAPIDS Overview
 
+RAPIDS is an open-source suite of GPU-accelerated libraries designed to speed up data science workflows.
+
+🧮 cuDF (GPU DataFrames)
+cuDF is the GPU-accelerated equivalent of pandas.
+It provides fast data manipulation using CUDA and NVIDIA GPUs.
+Syntax is nearly identical to pandas.
+🧠 cuML (GPU Machine Learning)
+cuML is a library of GPU-accelerated machine learning algorithms.
+Implements common models like Logistic Regression, Random Forests, KMeans, PCA, etc.
+Scikit-learn compatible API for easy migration.
 📦 Installation
-Run the following in a Google Colab environment:
-!git clone https://github.com/rapidsai/rapidsai-csp-utils.git
-!bash rapidsai-csp-utils/colab/install_rapids.sh stable
 
-Set CUDA path:
-import os
-os.environ["PATH"] += ":/usr/local/cuda/bin"
+To use RAPIDS in a Colab environment:
 
-Then install required Python libraries:
-import cuml
-import cudf
+Clone the rapidsai-csp-utils repository.
+Run the installation script.
+Update the environment PATH to include CUDA binaries.
+📥 Dataset: MNIST
 
-📚 Dataset
-- MNIST (Handwritten Digits)
-- Fetched using sklearn.datasets.fetch_openml
-- 70,000 grayscale images (28x28), flattened to 784 features
+We use the fetch_openml function from Scikit-learn to load the MNIST dataset. The data is normalized using StandardScaler, then split into training and test sets.
 
-⚙️ Preprocessing
-- Standardization using StandardScaler
-- Train/test split (80/20)
-- Conversion of NumPy arrays to cudf.DataFrame and cudf.Series for GPU training
+🚀 Convert to cuDF for GPU Processing
 
-🧠 Models
-CPU (Scikit-learn)
-- RandomForestClassifier from Scikit-learn
-- Parameters: n_estimators=100, max_depth=10
+We convert the NumPy arrays into cuDF DataFrames and Series to enable GPU-accelerated processing.
 
-GPU (cuML)
-- RandomForestClassifier from cuML
-- Parameters: n_estimators=100, max_depth=10, n_bins=8
+🖥️ Train on CPU (Scikit-learn)
 
-📈 Results
-| Method              | Accuracy | Training Time (sec) |
-|---------------------|----------|----------------------|
-| Scikit-learn (CPU)  | 0.9459   | 20.23                |
-| cuML (GPU)          | 0.9447   | 4.58                 |
+We train a Random Forest classifier with 100 trees and max depth 10 using Scikit-learn. The training time and accuracy are recorded for comparison.
 
-cuML achieves comparable accuracy with a 4x speedup in training time.
+Accuracy (CPU): 0.9459
+Training Time (CPU): 20.23 seconds
+⚡ Train on GPU (cuML + cuDF)
 
+We use the cuML Random Forest Classifier with the same hyperparameters. Data is already in cuDF format.
+
+Accuracy (GPU): 0.9447
+Training Time (GPU): 4.58 seconds
+📊 Results Comparison
+
+Method	Accuracy	Training Time (sec)
+Scikit-learn (CPU)	0.9459	20.23
+cuML (GPU)	0.9447	4.58
 📌 Conclusion
-- For small datasets like MNIST, both CPU and GPU methods perform well.
-- cuML is significantly faster and ideal for scaling to large datasets or real-time systems.
-- RAPIDS offers a seamless transition from Scikit-learn for GPU acceleration with minimal code changes.
 
-📝 License
-This project is released under the MIT License.
-
-🙌 Acknowledgments
-- RAPIDS.ai
-- Scikit-learn
-- OpenML MNIST
-"""
+cuML on GPU is significantly faster while maintaining nearly identical accuracy.
+For larger datasets or more computationally intensive tasks, GPU acceleration offers substantial time savings.
+If speed is a priority, cuML is the preferred choice. For small datasets, CPU-based solutions may suffice.
