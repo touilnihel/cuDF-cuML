@@ -28,7 +28,7 @@ To use RAPIDS in a Colab environment:
 
 ```bash
 !git clone https://github.com/rapidsai/rapidsai-csp-utils.git
-!bash rapidsai-csp-utils/colab/install_rapids.sh stable
+!bash rapidsai-csp-utils/colab/install_rapids.sh stable```
 
 
 ## 📊 Results Comparison
