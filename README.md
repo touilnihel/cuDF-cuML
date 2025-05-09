@@ -23,3 +23,12 @@ Run the following in a Google Colab environment:
 ```bash
 !git clone https://github.com/rapidsai/rapidsai-csp-utils.git
 !bash rapidsai-csp-utils/colab/install_rapids.sh stable
+
+
+Dataset
+
+MNIST (Handwritten Digits)
+Fetched using sklearn.datasets.fetch_openml
+70,000 grayscale images (28x28), flattened to 784 features
+
+
