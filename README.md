@@ -22,16 +22,7 @@ This project demonstrates how to leverage NVIDIA RAPIDS libraries — **cuDF** a
 
 ---
 
-## 📦 Installation
-
-To use RAPIDS in a Colab environment:
-
-```bash
-!git clone https://github.com/rapidsai/rapidsai-csp-utils.git
-!bash rapidsai-csp-utils/colab/install_rapids.sh stable```
-
-
-## 📊 Results Comparison
+# 📊 Results Comparison
 
 | Method              | Accuracy | Training Time (sec) |
 |---------------------|----------|----------------------|
